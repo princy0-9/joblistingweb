@@ -1,5 +1,6 @@
 const express = require("express")
 const path = require("path");
+const mongoose = require("mongoose")
 
 const env = require("dotenv");
 env.config();
@@ -13,5 +14,12 @@ app.get("/", (req, res) => {
 });
 app.listen(PORT, () => {
     console.log("Server is running on port 3001")
-
+    mongoose.connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }).then(() => {
+        console.log("MongoDB connected");
+    }).catch((err) => {
+        console.log(err);
+    });
 })
