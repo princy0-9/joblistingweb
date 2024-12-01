@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const User = require("../schema/userschema");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
-
+const dotenv = require("dotenv");
+dotenv.config();
 userRouter.post("/register", async (req,res) => {
     const { name, email, password, mobileno} = req.body
     const isUserExists = await User.findOne({ email})
