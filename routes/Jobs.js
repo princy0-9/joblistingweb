@@ -4,9 +4,17 @@ const Jobs = require("../schema/jobschema");
 const jobsRouter = express.Router();
 const authMiddleware = require("../middlewares/auth");
 
-jobsRouter.get("/", async (req, res) => {
+jobsRouter.get("/jobs", async (req, res) => {
     try {
-        const jobs = await Jobs.find();
+        const {limit, offset, salary, companyName, jobPosition, jobType} = req.query
+        //const jobs = await Jobs.find();
+        // const jobs = await Jobs.find().skip(offset).limit(limit);
+        //const jobs = await Jobs.find({salary: {$gte: 200, $lte: 300}}).skip(offset).limit(limit);
+       // const jobs = await Jobs.find({companyName: {$regex: companyName, $options: "i"}})
+       //const jobs = await Jobs.find({companyName: {$regex: companyName, $options: "i"}, salary: 200})
+       //http://localhost:3001/jobs?companyName=iv&jobType=full-time&jobPosition=deve&salary=400
+       //const jobs = await Jobs.find({ $or:[{companyName: {$regex: companyName, $options: "i"}, salary: salary, jobPosition: jobPosition, jobType: jobType}]})
+
         res.status(200).json(jobs);
     } catch (err) {
         res.status(500).json({ message: err.message });
