@@ -2,6 +2,7 @@ const express = require("express")
 const path = require("path");
 const mongoose = require("mongoose")
 const env = require("dotenv");
+const cors = require("cors")
 const userRouter = require("./routes/User");
 const bodyParser = require("body-parser");
 
@@ -11,6 +12,9 @@ const app = express();
 app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3001
+app.use(cors({
+    origin: "http://localhost:5173"
+}))
 
 app.use("/", userRouter)
 app.use("/", jobsRouter)
